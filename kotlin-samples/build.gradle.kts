@@ -2,7 +2,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.9.0"
-    application
+
+    id("my-super-jar-plugin-id")
 }
 
 dependencies {
@@ -17,6 +18,8 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-application {
-    mainClass.set("DynamicProxiesKt")
+tasks.getByName("jar", Jar::class) {
+    manifest {
+        attributes["Main-Class"] = "DynamicProxySampleKt"
+    }
 }
